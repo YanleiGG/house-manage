@@ -112,12 +112,12 @@ export default {
     async confirmApply() {
       for (let i in this.info) {
         if (i != 'else' && this.info[i] == '') {
-          console.log(this.info[i])
           this.$message({
             showClose: true,
             message: '请填写完整后再提交!',
             type: 'warning'
-          });          
+          });      
+          return      
         }
       }
     }
