@@ -1,8 +1,5 @@
-var router = require('koa-router')();
-
-router.prefix('/users');
-
-router.get('/', function *(next) {
-});
-
-module.exports = router;
+module.exports =  (router) => {
+  router.get('/user', async function (ctx, next) {
+    ctx.body = 'this a users response!';
+  })
+}

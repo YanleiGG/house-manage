@@ -1,40 +1,61 @@
-var app = require('koa')()
-  , logger = require('koa-logger')
-  , json = require('koa-json')
-  , views = require('koa-views')
-  , onerror = require('koa-onerror');
+const Koa = require('koa')
+const Router = require('koa-router')
+const app = new Koa()
+const router = new Router()
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+const views = require('koa-views')
+const co = require('co')
+const convert = require('koa-convert')
+const json = require('koa-json')
+const onerror = require('koa-onerror')
+const bodyparser = require('koa-bodyparser')
+const logger = require('koa-logger')
+const debug = require('debug')('koa2:server')
+const path = require('path')
+
+const config = require('./config')
+const routes = require('./routes')
+
+const port = process.env.PORT || config.port
 
 // error handler
-onerror(app);
+onerror(app)
 
-// global middlewares
-app.use(views('views', {
-  root: __dirname + '/views',
-  default: 'jade'
-}));
-app.use(require('koa-bodyparser')());
-app.use(json());
-app.use(logger());
+// middlewares
+app.use(bodyparser())
+  .use(json())
+  .use(logger())
+  .use(require('koa-static')(__dirname + '/public'))
+  .use(views(path.join(__dirname, '/views'), {
+    options: {settings: {views: path.join(__dirname, 'views')}},
+    map: {'ejs': 'ejs'},
+    extension: 'ejs'
+  }))
+  .use(router.routes())
+  .use(router.allowedMethods())
 
-app.use(function *(next){
-  var start = new Date;
-  yield next;
-  var ms = new Date - start;
-  console.log('%s %s - %s', this.method, this.url, ms);
-});
+// logger
+app.use(async (ctx, next) => {
+  const start = new Date()
+  await next()
+  const ms = new Date() - start
+  console.log(`${ctx.method} ${ctx.url} - $ms`)
+})
 
-app.use(require('koa-static')(__dirname + '/public'));
+router.get('/', async (ctx, next) => {
+  // ctx.body = 'Hello World'
+  ctx.state = {
+    title: 'Koa2'
+  }
+  await ctx.render('index', ctx.state)
+})
 
-// routes definition
-app.use(index.routes(), index.allowedMethods());
-app.use(users.routes(), users.allowedMethods());
+routes(router)
+app.on('error', function(err, ctx) {
+  console.log(err)
+  logger.error('server error', err, ctx)
+})
 
-// error-handling
-app.on('error', (err, ctx) => {
-  console.error('server error', err, ctx)
-});
-
-module.exports = app;
+module.exports = app.listen(config.port, () => {
+  console.log(`Listening on http://localhost:${config.port}`)
+})
