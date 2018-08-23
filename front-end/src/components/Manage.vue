@@ -31,7 +31,9 @@
 export default {
   name: 'manage',
   data () {
-    return {}
+    return {
+      tableData: []
+    }
   }
 }
 </script>
