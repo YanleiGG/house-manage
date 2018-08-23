@@ -1,5 +1,5 @@
 <template>
-      <el-row :gutter="20" style="margin-top:20px">
+      <el-row :gutter="20">
       <el-col>
         <el-table
           :data="tableData"
@@ -23,7 +23,7 @@
           <el-table-column prop="haveElseFavouratePolicy" label="是否享受过中央或北京市的其他优惠住房政策" width="150"></el-table-column>
           <el-table-column prop="phoneNumber" label="联系电话" width="150"></el-table-column>
           <el-table-column prop="else" label="备注" width="150"></el-table-column>
-        </el-table>      
+        </el-table> 
       </el-col>
     </el-row>  
 </template>
