@@ -5,8 +5,12 @@
 </template>
 
 <script>
+import store from './store'
+import axios from 'axios'
+
 export default {
   name: 'App',
+  store,
   data () {
     return {
     }

@@ -39,9 +39,10 @@ app.use(session(CONFIG, app));
 // 这里是为了处理 OPTIONS 方法跨域的问题
 // app.use(async (ctx, next) => {
 //   ctx.set({
-//     "Access-Control-Allow-Origin": "*",
+//     "Access-Control-Allow-Origin": "http://localhost:8082",
 //     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-//     "Access-Control-Allow-Headers": "Content-Type"
+//     "Access-Control-Allow-Headers": "Content-Type",
+//     "Access-Control-Allow-Credentials": "true"
 //   })
 //   if (ctx.method.toUpperCase() == 'OPTIONS') {
 //     ctx.body = ''

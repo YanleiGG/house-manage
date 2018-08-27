@@ -15,7 +15,7 @@ router.post('/', async ctx => {
     }
     return
   }
-
+  
   user = await User.create({username, password})
   user = JSON.parse(JSON.stringify(user))
   delete user.password

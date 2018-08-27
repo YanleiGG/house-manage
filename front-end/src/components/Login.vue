@@ -29,12 +29,12 @@
 
 <script>
 import axios from 'axios'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'loginPage',
   data () {
     return {
-      path: 'http://localhost:3000',
       sign_in_username: '',
       sign_in_password: '',
       sign_up_username: '',
@@ -44,7 +44,12 @@ export default {
     }
   },
   methods: {
+    ...mapMutations([
+      'set_isLogin',
+      'set_userId'
+    ]),
     async signin () {
+
       if (this.sign_in_username == '' || this.sign_in_password == '') {
         this.$message({
           showClose: true,
@@ -62,7 +67,9 @@ export default {
         },
         withCredentials: true
       })
+
       if (res.data.data) {
+        this.set_isLogin({ isLogin: true })
         document.getElementById('toApplyLink').click()
       } else {
         this.$message({
@@ -70,8 +77,14 @@ export default {
           message: '登录失败，账号或密码错误!',
           type: 'error'
         });
+        return
       }
-      console.log(await axios.get(`${this.path}/api/session`))
+      res = await axios({
+        method: 'GET',
+        url: `${this.path}/api/session`,
+        withCredentials: true
+      })
+      this.set_userId({ userId: res.data.data.id })
     },
     async signup () {
       if (this.sign_up_username.length < 6 || this.sign_up_password.length < 6) {
@@ -117,6 +130,14 @@ export default {
       this.sign_up_password = ''
       this.sign_up_repeat_password = ''
     }
+
+  },
+  computed: {
+    ...mapState({
+      path: state => state.path,
+      isLogin: state => state.isLogin,
+      userId: state => state.userId
+    })
   }
 }
 </script>

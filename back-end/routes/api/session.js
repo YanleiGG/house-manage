@@ -4,8 +4,9 @@ const { User } = require('../../model')
 router.prefix('/session')
 
 router.get('/', async ctx => {
-  let user = await User.findOne({where: {id: ctx.session.userId}})
-  delete user.password
+  let id = ctx.session.userId ? ctx.session.userId : ctx.request.body
+  let user = await User.findOne({where: { id }})
+  if (user) delete user.password
   ctx.body = {
     err: 0,
     info: '',

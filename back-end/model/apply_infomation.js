@@ -9,76 +9,64 @@ const ApplyInfomation = sequelize.define('apply_infomation', {
     unique: true
   },
   place: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   name: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   sex: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   idCard: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   humanRelation: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   group: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   entryTime: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   station: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   rewards: {
-    type: Sequelize.TEXT,
-    allowNull: false,
+    type: Sequelize.TEXT
   },
   marriage: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   isBeiJingRegistered: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   registerLocation: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   needBeiJingResidentPermit: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   isSocialSecurityOverSixtyMonth: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   haveHouseTransitionRecord: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   haveHouseInBeiJing: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   haveElseFavouratePolicy: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
   },
   phoneNumber: {
-    type: Sequelize.STRING,
-    allowNull: false,
+    type: Sequelize.STRING
+  },
+  mate: {
+    type: Sequelize.STRING
+  },
+  qualifications: {
+    type: Sequelize.STRING
   },
   else: {
     type: Sequelize.TEXT

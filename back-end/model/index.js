@@ -15,6 +15,7 @@ ApplyInfomation.sync()
 module.exports = {
   User,
   Role,
+  ApplyInfomation,
   sequelize, 
   Sequelize
 }
