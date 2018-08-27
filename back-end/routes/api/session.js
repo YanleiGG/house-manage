@@ -1,10 +1,11 @@
 const router = require('koa-router')()
-const { sequelize, User } = require('../../model')
+const { User } = require('../../model')
 
 router.prefix('/session')
 
 router.get('/', async ctx => {
   let user = await User.findOne({where: {id: ctx.session.userId}})
+  delete user.password
   ctx.body = {
     err: 0,
     info: '',
@@ -32,6 +33,7 @@ router.post('/', async ctx => {
     return    
   }
 
+  delete user.password
   ctx.session.userId = user.id
 
   ctx.body = {

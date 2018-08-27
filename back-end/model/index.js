@@ -12,7 +12,6 @@ Role.sync()   // 一对多关系中的'一'需要在'多'之前初始化
 User.sync()
 ApplyInfomation.sync()
 
-
 module.exports = {
   User,
   Role,

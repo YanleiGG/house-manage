@@ -1,23 +1,22 @@
 const router = require('koa-router')()
-const { sequelize, User } = require('../../model')
+const { User } = require('../../model')
 
-router.prefix('/session')
+router.prefix('/user')
 
 router.post('/', async ctx => {
-  const {username, password, email} = ctx.request.body
+  const {username, password} = ctx.request.body
 
-  let user
-  try {
-    user = User.create({username, password, email})
-  } catch(e){
+  let user = await User.findOne({ where: {username} })
+  if (user) {
     ctx.body = {
       err: 10103,
-      info: 'user existed',
-      data: null
+      info: 'username existed!',
+      data: { username }
     }
     return
   }
 
+  user = await User.create({username, password})
   user = JSON.parse(JSON.stringify(user))
   delete user.password
 
