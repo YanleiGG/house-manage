@@ -16,21 +16,13 @@ router.get('/', async ctx => {
 router.post('/', async ctx => {
   const {username, password} = ctx.request.body
   let user = await User.findOne({where: {username}})
-  if (!user) {
+  if (!user || password != user.password) {
     ctx.body = {
       err: 10101,
-      info: 'user doesnot exist',
+      info: 'login failed!',
       data: null
     }
     return
-  }
-  if (password != user.password) {
-    ctx.body = {
-      err: 10102,
-      info: 'password is not correct',
-      data: null
-    }
-    return    
   }
 
   delete user.password

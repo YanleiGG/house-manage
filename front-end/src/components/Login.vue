@@ -28,10 +28,13 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'loginPage',
   data () {
     return {
+      path: 'http://localhost:3000',
       sign_in_username: '',
       sign_in_password: '',
       sign_up_username: '',
@@ -50,7 +53,16 @@ export default {
         });
         return
       }
-      document.getElementById('toApplyLink').click()
+      let res = await axios.post(`${this.path}/api/session`, { username: this.sign_in_username, password: this.sign_in_password })
+      if (res.data.data) {
+        document.getElementById('toApplyLink').click()
+      } else {
+        this.$message({
+          showClose: true,
+          message: '登录失败，账号或密码错误!',
+          type: 'error'
+        });
+      }
     },
     async signup () {
       if (this.sign_up_username.length < 6 || this.sign_up_password.length < 6) {
@@ -68,11 +80,25 @@ export default {
         });
         return    
       }
-      // 注册
+
+      let res = await axios.post(`${this.path}/api/user`, { username: this.sign_up_username, password: this.sign_up_password })
+      if (res.err === 10103) {
+        this.$message({
+          showClose: true,
+          message: '用户名已存在!',
+          type: 'warning'
+        });        
+      } else if (res.data.data) {
+        this.$message({
+          showClose: true,
+          message: '注册成功!',
+          type: 'success'
+        });
+        this.signup_cancel()
+        this.activeName = 'sign-in'
+      }
     },
-    handleTabClick () {
-      console.log(this.activeName)
-    },
+    handleTabClick () {},
     signin_cancel () {
       this.sign_in_username = ''
       this.sign_in_password = ''

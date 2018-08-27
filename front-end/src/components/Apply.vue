@@ -32,6 +32,8 @@
       <el-select v-model="info.marriage" style="width:100%;margin-bottom: 20px">
         <el-option v-for="item in info.marriages" :key="item.value" :label="item.label" :value="item.value"></el-option>
       </el-select>
+      <div style="margin-bottom: 10px" v-if="this.info.marriage == '已婚'">配偶身份证号:</div>
+      <el-input v-model="info.mate" style="margin-bottom: 20px"  v-if="this.info.marriage == '已婚'"></el-input>
       <div style="margin-bottom: 10px">是否属于北京市户籍:</div>
       <el-select v-model="info.isBeiJingRegistered" style="width:100%;margin-bottom: 20px">
         <el-option v-for="item in info.isBeiJingRegistereds" :key="item.value" :label="item.label" :value="item.value"></el-option>
@@ -60,6 +62,8 @@
       </el-select>           
       <div style="margin-bottom: 10px">联系电话:</div>
       <el-input v-model="info.phoneNumber" style="margin-bottom: 20px"></el-input>
+      <div style="margin-bottom: 10px">学历:</div>
+      <el-input v-model="info.qualifications" style="margin-bottom: 20px"></el-input>
       <div style="margin-bottom: 10px">备注:</div>
       <el-input type="textarea" autosize v-model="info.else" style="margin-bottom: 20px"></el-input>
       <el-col style="color:white; text-align:center;padding:0">
@@ -104,6 +108,8 @@ export default {
         haveElseFavouratePolicys: [{ value: '是', label: '是' }, { value: '否', label: '否' }],
         haveElseFavouratePolicy: '',
         phoneNumber: '',
+        qualifications: '',
+        mate: '',
         else: ''
       }
     }
