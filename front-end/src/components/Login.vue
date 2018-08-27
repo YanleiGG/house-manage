@@ -53,7 +53,15 @@ export default {
         });
         return
       }
-      let res = await axios.post(`${this.path}/api/session`, { username: this.sign_in_username, password: this.sign_in_password })
+      let res = await axios({
+        method: 'POST',
+        url: `${this.path}/api/session`,
+        data: { 
+          username: this.sign_in_username, 
+          password: this.sign_in_password 
+        },
+        withCredentials: true
+      })
       if (res.data.data) {
         document.getElementById('toApplyLink').click()
       } else {
@@ -63,6 +71,7 @@ export default {
           type: 'error'
         });
       }
+      console.log(await axios.get(`${this.path}/api/session`))
     },
     async signup () {
       if (this.sign_up_username.length < 6 || this.sign_up_password.length < 6) {

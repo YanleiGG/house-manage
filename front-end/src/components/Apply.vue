@@ -66,6 +66,11 @@
       <el-input v-model="info.qualifications" style="margin-bottom: 20px"></el-input>
       <div style="margin-bottom: 10px">备注:</div>
       <el-input type="textarea" autosize v-model="info.else" style="margin-bottom: 20px"></el-input>
+      <el-col style="text-align:center;margin-bottom:20px">
+        <el-checkbox v-model="info.checked"></el-checkbox>
+        同意
+        <a href="">天玑团队职工流动公寓管理规定</a>
+      </el-col>
       <el-col style="color:white; text-align:center;padding:0">
         <v-btn color="blue darken-3" depressed @click="confirmApply">确认申请</v-btn> 
         <v-btn color="grey lighten-1" depressed>取消</v-btn>
@@ -74,10 +79,13 @@
   </el-row>
 </template>
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Apply',
   data () {
     return {
+      path: 'http://localhost:3000',
       info: {
         places: [{ value: '创客小镇', label: '创客小镇' }],
         place: '',
@@ -110,14 +118,15 @@ export default {
         phoneNumber: '',
         qualifications: '',
         mate: '',
-        else: ''
+        else: '',
+        checked: false
       }
     }
   },
   methods: {
     async confirmApply() {
       for (let i in this.info) {
-        if (i != 'else' && this.info[i] == '') {
+        if (i != 'else' && i != 'mate' && this.info[i] == '' || !this.info.checked) {
           this.$message({
             showClose: true,
             message: '请填写完整后再提交!',
@@ -126,6 +135,10 @@ export default {
           return      
         }
       }
+      let res = await axios.get(`${this.path}/api/session`)
+      let userId = res.data.data.id
+      res = await axios.post(`${this.path}/api/apply_infomation`, { ...this.info, userId })
+      console.log(res)
     }
   }
 }
