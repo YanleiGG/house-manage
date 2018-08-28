@@ -1,11 +1,21 @@
 const router = require('koa-router')()
-const { ApplyInfomation } = require('../../model')
+const { ApplyInfomation, User } = require('../../model')
 
 router.prefix('/apply_infomation')
 
 router.get('/', async ctx => {
-  const { userId } = ctx.request.body
-  let info = await ApplyInfomation.findOne({ where: { userId } })
+  let infos = await ApplyInfomation.findAll()
+  console.log(ctx.query)
+  ctx.body = {
+    err: 0,
+    msg: 'query success!',
+    data: infos
+  }
+})
+
+router.get('/:id', async ctx => {
+  const id = ctx.params.id
+  let info = await ApplyInfomation.findOne({ id })
   ctx.body = {
     err: 0,
     msg: 'query success!',
@@ -15,11 +25,14 @@ router.get('/', async ctx => {
 
 router.post('/', async ctx => {
   const apply_infomation = ctx.request.body
-  let info = await ApplyInfomation.findOne({ where: { userId: apply_infomation.userId } })
+  let userId = apply_infomation.userId
+  let info = await ApplyInfomation.findOne({ where: { userId } })
+  let user = await User.findOne({ id: userId })
   if (info) {
-    info = info.update(apply_infomation)
+    info = await info.update(apply_infomation)
   } else {
-    info = ApplyInfomation.create(apply_infomation)
+    info = await ApplyInfomation.create(apply_infomation)
+    await user.setApplyInfomation(info)
   }
   ctx.body = {
     err: 0,
