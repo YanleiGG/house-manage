@@ -130,7 +130,7 @@ export default {
       userId: state => state.userId
     }),
     downloadPath () {
-      return this.path + '/api/download/manage-regulation'
+      return this.path + 'api/download/manage-regulation'
     }
   },
   methods: {

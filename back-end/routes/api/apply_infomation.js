@@ -5,11 +5,16 @@ router.prefix('/apply_infomation')
 
 router.get('/', async ctx => {
   let infos = await ApplyInfomation.findAll()
-  console.log(ctx.query)
+  let { page, pageSize } = ctx.query
+  let count = infos.length
+  let info = infos.splice((page-1)*pageSize, pageSize)
   ctx.body = {
     err: 0,
     msg: 'query success!',
-    data: infos
+    data: {
+      info,
+      count
+    }
   }
 })
 

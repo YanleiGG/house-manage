@@ -1,7 +1,9 @@
 <template>
     <el-row :gutter="20">
       <el-col>
-        <v-btn color="blue darken-3" depressed @click="exportAsExcel" style="color:white">导出</v-btn> 
+        <v-btn color="blue darken-3" depressed @click="exportAsExcel" style="color:white">
+          <a :href="downloadPath" style="text-decoration:none;color:white">导出</a>
+        </v-btn>
       </el-col>
       <el-col>
         <el-table
@@ -62,10 +64,15 @@ export default {
       path: state => state.path,
       isLogin: state => state.isLogin,
       userId: state => state.userId
-    })
+    }),
+    downloadPath () {
+      return this.path + '/api/download/export-as-excel'
+    }
   },
   methods: {
-    async exportAsExcel () {},
+    async exportAsExcel () {
+
+    },
     async refresh () {
       let res = await axios.get(`${this.path}/api/apply_infomation?page=${this.page}&pageSize=10`)
       let data = res.data.data
