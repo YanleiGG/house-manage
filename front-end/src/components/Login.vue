@@ -49,7 +49,6 @@ export default {
       'set_userId'
     ]),
     async signin () {
-
       if (this.sign_in_username == '' || this.sign_in_password == '') {
         this.$message({
           showClose: true,
