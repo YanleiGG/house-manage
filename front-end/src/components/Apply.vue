@@ -80,12 +80,12 @@
 </template>
 <script>
 import axios from 'axios'
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
   name: 'Apply',
   data () {
     return {
-      path: 'http://localhost:3000',
       info: {
         places: [{ value: '创客小镇', label: '创客小镇' }],
         place: '',
@@ -123,6 +123,13 @@ export default {
       }
     }
   },
+  computed: {
+    ...mapState({
+      path: state => state.path,
+      isLogin: state => state.isLogin,
+      userId: state => state.userId
+    })
+  },
   methods: {
     async confirmApply() {
       for (let i in this.info) {
@@ -130,15 +137,19 @@ export default {
           this.$message({
             showClose: true,
             message: '请填写完整后再提交!',
-            type: 'warning'
+            type: 'info'
           });      
           return      
         }
       }
-      let res = await axios.get(`${this.path}/api/session`)
-      let userId = res.data.data.id
-      res = await axios.post(`${this.path}/api/apply_infomation`, { ...this.info, userId })
-      console.log(res)
+      let res = await axios.post(`${this.path}/api/apply_infomation`, { ...this.info, userId: this.userId })
+      if (res.data.err === 0) {
+        this.$message({
+          showClose: true,
+          message: '申请成功!',
+          type: 'success'
+        });           
+      }      
     }
   }
 }

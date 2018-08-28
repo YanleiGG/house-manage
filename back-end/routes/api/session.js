@@ -28,6 +28,7 @@ router.post('/', async ctx => {
 
   delete user.password
   ctx.session.userId = user.id
+  console.log(ctx.session.userId)
 
   ctx.body = {
     err: 0,

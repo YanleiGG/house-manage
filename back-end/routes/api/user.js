@@ -1,5 +1,5 @@
 const router = require('koa-router')()
-const { User } = require('../../model')
+const { User, ApplyInfomation } = require('../../model')
 
 router.prefix('/user')
 
@@ -15,8 +15,9 @@ router.post('/', async ctx => {
     }
     return
   }
-  
+
   user = await User.create({username, password})
+  apply_info = await User.createApplyInfomation({})
   user = JSON.parse(JSON.stringify(user))
   delete user.password
 

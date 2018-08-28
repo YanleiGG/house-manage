@@ -53,7 +53,7 @@ export default {
         this.$message({
           showClose: true,
           message: '账号和密码不能为空!',
-          type: 'warning'
+          type: 'info'
         });
         return
       }
@@ -90,14 +90,14 @@ export default {
         this.$message({
           showClose: true,
           message: '账号和密码长度至少为6位!',
-          type: 'warning'
+          type: 'info'
         });
         return 
       } else if (this.sign_up_password != this.sign_up_repeat_password) {
         this.$message({
           showClose: true,
           message: '两次输入密码不一致!',
-          type: 'warning'
+          type: 'info'
         });
         return    
       }
@@ -107,7 +107,7 @@ export default {
         this.$message({
           showClose: true,
           message: '用户名已存在!',
-          type: 'warning'
+          type: 'info'
         });        
       } else if (res.data.data) {
         this.$message({
@@ -129,7 +129,6 @@ export default {
       this.sign_up_password = ''
       this.sign_up_repeat_password = ''
     }
-
   },
   computed: {
     ...mapState({

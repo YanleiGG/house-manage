@@ -12,9 +12,8 @@ export default {
   name: 'App',
   store,
   data () {
-    return {
-    }
-  }
+    return {}
+  },
 }
 </script>
 

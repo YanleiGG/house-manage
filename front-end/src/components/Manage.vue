@@ -1,5 +1,5 @@
 <template>
-      <el-row :gutter="20">
+    <el-row :gutter="20">
       <el-col>
         <el-table
           :data="tableData"
@@ -14,6 +14,7 @@
           <el-table-column prop="station" label="现任岗位" width="150"></el-table-column>
           <el-table-column prop="rewards" label="获得奖励" width="150"></el-table-column>
           <el-table-column prop="marriage" label="婚姻状况" width="150"></el-table-column>
+          <el-table-column prop="mate" label="配偶身份证号" width="150"></el-table-column>
           <el-table-column prop="isBeiJingRegistered" label="是否属于北京市户籍" width="150"></el-table-column>
           <el-table-column prop="registerLocation" label="户籍所在地" width="150"></el-table-column>
           <el-table-column prop="needBeiJingResidentPermit" label="是否办理北京居住证" width="150"></el-table-column>
@@ -22,8 +23,9 @@
           <el-table-column prop="haveHouseInBeiJing" label="北京市范围内有无住房" width="150"></el-table-column>
           <el-table-column prop="haveElseFavouratePolicy" label="是否享受过中央或北京市的其他优惠住房政策" width="150"></el-table-column>
           <el-table-column prop="phoneNumber" label="联系电话" width="150"></el-table-column>
+          <el-table-column prop="qualifications" label="学历" width="150"></el-table-column>
           <el-table-column prop="else" label="备注" width="150"></el-table-column>
-        </el-table> 
+        </el-table>
       </el-col>
     </el-row>  
 </template>
@@ -51,6 +53,8 @@ export default {
         haveHouseInBeiJing: '无',
         haveElseFavouratePolicy: '否',
         phoneNumber: '12345678',
+        qualifications: '',
+        mate: '',        
         else: ''
       }]
     }
@@ -58,5 +62,4 @@ export default {
 }
 </script>
 <style scoped>
-
 </style>
