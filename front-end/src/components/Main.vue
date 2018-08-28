@@ -14,7 +14,7 @@
           </v-btn>
         </v-toolbar-items> 
         <v-toolbar-items class="hidden-sm-and-down">
-          <v-btn flat @click="toManage" v-if="isLogin">
+          <v-btn flat @click="toManage" v-if="isLogin && this.username === 'admin'">
             信息管理
             <router-link to="/manage" id="toManage"></router-link>
           </v-btn>
@@ -44,13 +44,15 @@ export default {
     ...mapState({
       path: state => state.path,
       isLogin: state => state.isLogin,
-      userId: state => state.userId
+      userId: state => state.userId,
+      username: state => state.username
     })
   },
   methods: {
     ...mapMutations([
       'set_isLogin',
-      'set_userId'
+      'set_userId',
+      'set_username'
     ]),    
     async logout () {
       let res = await axios({
@@ -60,6 +62,7 @@ export default {
       })
       if (res.data.err === 0) {
         this.set_isLogin(false)
+        this.set_username({ username: '' })
         document.getElementById('toLogin').click()
       }
     },

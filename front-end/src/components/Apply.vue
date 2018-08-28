@@ -127,13 +127,19 @@ export default {
     ...mapState({
       path: state => state.path,
       isLogin: state => state.isLogin,
-      userId: state => state.userId
+      userId: state => state.userId,
+      username: state => state.username
     }),
     downloadPath () {
       return this.path + 'api/download/manage-regulation'
     }
   },
   methods: {
+    ...mapMutations([
+      'set_isLogin',
+      'set_userId',
+      'set_username'
+    ]),    
     async confirmApply() {
       for (let i in this.info) {
         if (i != 'else' && i != 'mate' && this.info[i] == '' || !this.info.checked) {
@@ -158,6 +164,20 @@ export default {
           }
         }
       }
+    }
+  },
+  async created () {
+    let res = await axios({
+      method: 'GET',
+      url: `${this.path}/api/session`,
+      withCredentials: true
+    })
+    if (res.data.data) {
+      this.set_isLogin({ isLogin: true })
+      this.set_username({ username: res.data.data.username })
+      this.set_userId({ userId: res.data.data.id })
+    } else {
+      document.getElementById('toLogin').click()
     }
   }
 }

@@ -46,7 +46,8 @@ export default {
   methods: {
     ...mapMutations([
       'set_isLogin',
-      'set_userId'
+      'set_userId',
+      'set_username'
     ]),
     async signin () {
       if (this.sign_in_username == '' || this.sign_in_password == '') {
@@ -69,6 +70,8 @@ export default {
 
       if (res.data.data) {
         this.set_isLogin({ isLogin: true })
+        this.set_userId({ userId: res.data.data.id })
+        this.set_username({ username: res.data.data.username })
         document.getElementById('toApplyLink').click()
       } else {
         this.$message({
@@ -78,12 +81,6 @@ export default {
         });
         return
       }
-      res = await axios({
-        method: 'GET',
-        url: `${this.path}/api/session`,
-        withCredentials: true
-      })
-      this.set_userId({ userId: res.data.data.id })
     },
     async signup () {
       if (this.sign_up_username.length < 6 || this.sign_up_password.length < 6) {
@@ -134,9 +131,11 @@ export default {
     ...mapState({
       path: state => state.path,
       isLogin: state => state.isLogin,
-      userId: state => state.userId
+      userId: state => state.userId,
+      username: state => state.username
     })
-  }
+  },
+
 }
 </script>
 

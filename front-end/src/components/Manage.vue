@@ -1,7 +1,7 @@
 <template>
-    <el-row :gutter="20">
+    <el-row :gutter="20" v-if="isLogin && this.username === 'admin'">
       <el-col>
-        <v-btn color="blue darken-3" depressed @click="exportAsExcel" style="color:white">
+        <v-btn color="blue darken-3" depressed style="color:white">
           <a :href="downloadPath" style="text-decoration:none;color:white">导出</a>
         </v-btn>
       </el-col>
@@ -42,6 +42,7 @@
           :current-page="page">
         </el-pagination>        
       </el-col>
+      <router-link to="/" id="toLogin"></router-link>
     </el-row>  
 </template>
 <script>
@@ -59,22 +60,37 @@ export default {
     }
   },
   async created () {
+    let res = await axios({
+      method: 'GET',
+      url: `${this.path}/api/session`,
+      withCredentials: true
+    })
+    if (res.data.data) {
+      this.set_isLogin({ isLogin: true })
+      this.set_userId({ userId: res.data.data.id })
+      this.set_username({ username: res.data.data.username })
+    } else {
+      document.getElementById('toLogin').click()
+    }
     this.refresh()
   },
   computed: {
     ...mapState({
       path: state => state.path,
       isLogin: state => state.isLogin,
-      userId: state => state.userId
+      userId: state => state.userId,
+      username: state => state.username
     }),
     downloadPath () {
       return this.path + '/api/download/export-as-excel'
     }
   },
   methods: {
-    async exportAsExcel () {
-
-    },
+    ...mapMutations([
+      'set_isLogin',
+      'set_userId',
+      'set_username'
+    ]),
     async refresh () {
       let res = await axios.get(`${this.path}/api/apply_infomation?page=${this.page}&pageSize=10`)
       let data = res.data.data
