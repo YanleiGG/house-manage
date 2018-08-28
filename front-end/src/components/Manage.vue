@@ -9,6 +9,7 @@
         <el-table
           :data="tableData"
           style="width: 100%">
+          <el-table-column prop="updatedAt" label="申请时间" width="120"></el-table-column>
           <el-table-column prop="name" label="姓名" width="100"></el-table-column>
           <el-table-column prop="place" label="申请住房地址" width="120"></el-table-column>
           <el-table-column prop="sex" label="性别" width="60  "></el-table-column>
@@ -45,6 +46,7 @@
 </template>
 <script>
 import axios from 'axios'
+import moment from 'moment'
 import { mapState, mapActions, mapMutations } from 'vuex'
 
 export default {
@@ -76,6 +78,10 @@ export default {
     async refresh () {
       let res = await axios.get(`${this.path}/api/apply_infomation?page=${this.page}&pageSize=10`)
       let data = res.data.data
+      data.info.forEach(i => {
+        i['updatedAt'] = moment(i['updatedAt']).format("YYYY-MM-DD").toString()
+        i['entryTime'] = moment(i['entryTime']).format("YYYY-MM-DD").toString()
+      })
       this.tableData = data.info
       this.totalCount = data.count
     }
