@@ -69,7 +69,7 @@
       <el-col style="text-align:center;margin-bottom:20px">
         <el-checkbox v-model="info.checked"></el-checkbox>
         同意
-        <a href="">天玑团队职工流动公寓管理规定</a>
+        <a :href="downloadPath">天玑团队职工流动公寓管理规定</a>
       </el-col>
       <el-col style="color:white; text-align:center;padding:0">
         <v-btn color="blue darken-3" depressed @click="confirmApply">确认申请</v-btn> 
@@ -128,7 +128,10 @@ export default {
       path: state => state.path,
       isLogin: state => state.isLogin,
       userId: state => state.userId
-    })
+    }),
+    downloadPath () {
+      return this.path + '/api/download/manage-regulation'
+    }
   },
   methods: {
     async confirmApply() {
@@ -149,7 +152,12 @@ export default {
           message: '申请成功!',
           type: 'success'
         });           
-      }      
+        for (let i in this.info) {
+          if (!(i instanceof Array)) {
+            this.info[i] = ''
+          }
+        }
+      }
     }
   }
 }
