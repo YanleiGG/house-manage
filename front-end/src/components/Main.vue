@@ -8,6 +8,18 @@
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
+          <v-btn flat @click="toApply" v-if="isLogin">
+            申请
+            <router-link to="/apply" id="toApply"></router-link>
+          </v-btn>
+        </v-toolbar-items> 
+        <v-toolbar-items class="hidden-sm-and-down">
+          <v-btn flat @click="toManage" v-if="isLogin">
+            信息管理
+            <router-link to="/manage" id="toManage"></router-link>
+          </v-btn>
+        </v-toolbar-items> 
+        <v-toolbar-items class="hidden-sm-and-down">
           <v-btn flat v-if="isLogin" @click="logout">注销</v-btn>
         </v-toolbar-items>        
       </v-toolbar>      
@@ -50,6 +62,12 @@ export default {
         this.set_isLogin(false)
         document.getElementById('toLogin').click()
       }
+    },
+    toApply () {
+      document.getElementById('toApply').click()
+    },
+    toManage () {
+      document.getElementById('toManage').click()
     }
   }
 }

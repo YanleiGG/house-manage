@@ -30,35 +30,27 @@
     </el-row>  
 </template>
 <script>
+import axios from 'axios'
+import { mapState, mapActions, mapMutations } from 'vuex'
+
 export default {
   name: 'manage',
   data () {
     return {
-      tableData: [{
-        place: '创客小镇',
-        name: '测试',
-        sex: '男',
-        idCard: '110293009287900',
-        humanRelation: '实验室',
-        group: '实验室',
-        entryTime: '2018-08-01',
-        station: 'Java工程师',
-        rewards: '无',
-        marriage: '未婚',
-        isBeiJingRegistered: '否',
-        registerLocation: '北京',
-        needBeiJingResidentPermit: '否',
-        isSocialSecurityOverSixtyMonth: '否',
-        haveHouseTransitionRecord: '否',
-        haveHouseInBeiJing: '无',
-        haveElseFavouratePolicy: '否',
-        phoneNumber: '12345678',
-        qualifications: '',
-        mate: '',        
-        else: ''
-      }]
+      tableData: []
     }
-  }
+  },
+  async created () {
+    let res = await axios.get(`${this.path}/api/apply_infomation`)
+    this.tableData = res.data.data
+  },
+  computed: {
+    ...mapState({
+      path: state => state.path,
+      isLogin: state => state.isLogin,
+      userId: state => state.userId
+    })
+  }  
 }
 </script>
 <style scoped>
