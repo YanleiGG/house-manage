@@ -131,7 +131,7 @@ export default {
       username: state => state.username
     }),
     downloadPath () {
-      return this.path + 'api/download/manage-regulation'
+      return this.path + '/api/download/manage-regulation'
     }
   },
   methods: {
@@ -152,6 +152,7 @@ export default {
         }
       }
       let res = await axios.post(`${this.path}/api/apply_infomation`, { ...this.info, userId: this.userId })
+      console.log(this.userId)
       if (res.data.err === 0) {
         this.$message({
           showClose: true,
@@ -159,7 +160,7 @@ export default {
           type: 'success'
         });           
         for (let i in this.info) {
-          if (!(i instanceof Array)) {
+          if (!(this.info[i] instanceof Array)) {
             this.info[i] = ''
           }
         }

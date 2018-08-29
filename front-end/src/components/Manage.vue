@@ -1,9 +1,10 @@
 <template>
     <el-row :gutter="20" v-if="isLogin && this.username === 'admin'">
       <el-col>
-        <v-btn color="blue darken-3" depressed style="color:white">
-          <a :href="downloadPath" style="text-decoration:none;color:white">导出</a>
+        <v-btn color="blue darken-3" depressed @click="exportAsExcel" style="color:white">
+          导出
         </v-btn>
+        <a :href="downloadPath" id="exportAsExcel"></a>
       </el-col>
       <el-col>
         <el-table
@@ -100,6 +101,9 @@ export default {
       })
       this.tableData = data.info
       this.totalCount = data.count
+    },
+    exportAsExcel () {
+      document.getElementById('exportAsExcel').click()
     }
   },
   watch: {

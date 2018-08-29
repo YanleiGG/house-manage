@@ -24,6 +24,7 @@
       </el-col>
     </el-row>
     <router-link to="/apply" id="toApplyLink"></router-link>
+    <router-link to="/manage" id="toManageLink"></router-link>
   </div>
 </template>
 
@@ -72,7 +73,11 @@ export default {
         this.set_isLogin({ isLogin: true })
         this.set_userId({ userId: res.data.data.id })
         this.set_username({ username: res.data.data.username })
-        document.getElementById('toApplyLink').click()
+        if (this.username === 'admin') {
+          document.getElementById('toManageLink').click()
+        } else {
+          document.getElementById('toApplyLink').click()
+        }
       } else {
         this.$message({
           showClose: true,
