@@ -1,5 +1,5 @@
 const router = require('koa-router')()
-const { User, ApplyInfomation } = require('../../model')
+const { User } = require('../../model')
 
 router.prefix('/user')
 
@@ -28,5 +28,7 @@ router.post('/', async ctx => {
     data: user
   }
 })
+
+
 
 module.exports = router

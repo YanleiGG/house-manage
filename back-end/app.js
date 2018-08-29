@@ -31,21 +31,6 @@ const CONFIG = {
  
 app.use(session(CONFIG, app));
 
-// 这里是为了处理 OPTIONS 方法跨域的问题
-// app.use(async (ctx, next) => {
-//   ctx.set({
-//     "Access-Control-Allow-Origin": "http://localhost:8082",
-//     "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-//     "Access-Control-Allow-Headers": "Content-Type",
-//     "Access-Control-Allow-Credentials": "true"
-//   })
-//   if (ctx.method.toUpperCase() == 'OPTIONS') {
-//     ctx.body = ''
-//   } else {
-//     await next()
-//   }
-// })
-
 // 设置跨域
 app.use(cors({
   credentials: true  // 这里是为了允许在跨域的情况下也可以将 Cookie 传到后端，同时前端 axios 也要设置为 true

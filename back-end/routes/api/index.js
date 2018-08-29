@@ -7,4 +7,4 @@ fs.readdirSync(__dirname).filter(i => i != 'index.js').forEach(i => {
   router.use(moudule.routes(), moudule.allowedMethods())
 })
 
-module.exports  =  router
+module.exports = router
