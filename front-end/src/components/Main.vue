@@ -14,7 +14,7 @@
           </v-btn>
         </v-toolbar-items> 
         <v-toolbar-items class="hidden-sm-and-down">
-          <v-btn flat @click="toManage" v-if="isLogin && this.username === 'admin'">
+          <v-btn flat @click="toManage" v-if="isLogin && this.username === 'zhangdong' || this.username === 'admin'">
             信息管理
             <router-link to="/manage" id="toManage"></router-link>
           </v-btn>

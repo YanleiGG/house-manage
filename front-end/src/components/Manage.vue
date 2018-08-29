@@ -1,5 +1,5 @@
 <template>
-    <el-row :gutter="20" v-if="isLogin && this.username === 'admin'">
+    <el-row :gutter="20" v-if="isLogin && this.username === 'zhangdong' || this.username === 'admin'">
       <el-col>
         <v-btn color="blue darken-3" depressed @click="exportAsExcel" style="color:white">
           导出
@@ -14,7 +14,7 @@
           <el-table-column prop="name" label="姓名" width="100"></el-table-column>
           <el-table-column prop="place" label="申请住房地址" width="120"></el-table-column>
           <el-table-column prop="sex" label="性别" width="60  "></el-table-column>
-          <el-table-column prop="idCard" label="身份证号" width="150"></el-table-column>
+          <el-table-column prop="idCard" label="身份证号" width="160"></el-table-column>
           <el-table-column prop="humanRelation" label="人事关系" width="120"></el-table-column>
           <el-table-column prop="group" label="组织结构" width="100"></el-table-column>
           <el-table-column prop="entryTime" label="入职时间" width="150"></el-table-column>
@@ -40,11 +40,11 @@
           layout="prev, pager, next"
           :total="totalCount"
           style="text-align:center;margin-top:20px"
-          :current-page="page">
+          :current-page.sync="page">
         </el-pagination>        
       </el-col>
       <router-link to="/" id="toLogin"></router-link>
-    </el-row>  
+    </el-row>
 </template>
 <script>
 import axios from 'axios'
