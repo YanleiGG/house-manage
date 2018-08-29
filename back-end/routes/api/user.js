@@ -20,6 +20,8 @@ router.post('/', async ctx => {
   user = JSON.parse(JSON.stringify(user))
   delete user.password
 
+  ctx.session.userId = user.id
+
   ctx.body = {
     err: 0,
     info: '',

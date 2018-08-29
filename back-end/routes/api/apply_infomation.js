@@ -36,8 +36,8 @@ router.post('/', async ctx => {
   if (info) {
     info = await info.update(apply_infomation)
   } else {
-    info = await ApplyInfomation.create(apply_infomation)
-    await user.setApplyInfomation(info)
+    // info = await ApplyInfomation.create(apply_infomation)
+    await user.createApplyInfomation(apply_infomation)
   }
   ctx.body = {
     err: 0,

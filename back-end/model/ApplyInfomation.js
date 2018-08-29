@@ -1,6 +1,6 @@
 const {sequelize, Sequelize} = require('./base')
 
-const ApplyInfomation = sequelize.define('apply_infomation', {
+const ApplyInfomation = sequelize.define('ApplyInfomation', {
   id: {
     primaryKey: true,
     type: Sequelize.INTEGER,

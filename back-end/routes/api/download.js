@@ -4,6 +4,7 @@ const xlsx = require('node-xlsx').default;
 const fs = require('fs')
 const { ApplyInfomation } = require('../../model')
 const moment = require('moment');
+
 router.prefix('/download')
 
 router.get('/manage-regulation', async function (ctx) {
