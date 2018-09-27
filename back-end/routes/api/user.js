@@ -7,7 +7,9 @@ router.post('/', async ctx => {
   const {username, password} = ctx.request.body
 
   let user = await User.findOne({ where: {username} })
+  console.log(user)
   if (user) {
+    console.log(1)
     ctx.body = {
       err: 10103,
       info: 'username existed!',

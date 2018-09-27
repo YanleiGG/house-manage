@@ -55,7 +55,7 @@ export default {
         this.$message({
           showClose: true,
           message: '账号和密码不能为空!',
-          type: 'info'
+          type: 'error'
         });
         return
       }
@@ -92,24 +92,24 @@ export default {
         this.$message({
           showClose: true,
           message: '账号和密码长度至少为6位!',
-          type: 'info'
+          type: 'error'
         });
         return 
       } else if (this.sign_up_password != this.sign_up_repeat_password) {
         this.$message({
           showClose: true,
           message: '两次输入密码不一致!',
-          type: 'info'
+          type: 'error'
         });
         return    
       }
 
       let res = await axios.post(`${this.path}/api/user`, { username: this.sign_up_username, password: this.sign_up_password })
-      if (res.err === 10103) {
+      if (res.data.err === 10103) {
         this.$message({
           showClose: true,
           message: '用户名已存在!',
-          type: 'info'
+          type: 'error'
         });        
       } else if (res.data.data) {
         this.$message({
