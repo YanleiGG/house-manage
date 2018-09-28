@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 import Vuetify from 'vuetify'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import 'vuetify/dist/vuetify.min.css'
+import 'babel-polyfill'
 
 Vue.use(Vuetify)
 Vue.use(ElementUI);

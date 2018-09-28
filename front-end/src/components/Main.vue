@@ -4,7 +4,7 @@
       <v-toolbar flat color="blue darken-4" dark>
         <v-toolbar-title style="color: white">
           <v-icon style="margin-bottom:2px">home</v-icon>
-          住房管理平台
+          天玑团队住房管理系统
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">

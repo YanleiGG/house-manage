@@ -8,7 +8,7 @@ export default new Vuex.Store({
     isLogin: false,
     userId: null,
     username: '',
-    path: `http://localhost:3000`
+    path: `http://${window.location.host}`
   },
   mutations: {
     set_isLogin (state, { isLogin }) {
